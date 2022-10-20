@@ -98,5 +98,23 @@
         public static string NWAIList = "";
         public static string NWAIPagedList = "";
         public static string NWAIAny = "";
+
+        public static string WAGet = "";
+        public static string WAGetParameter = "";
+        public static string WACreate = "";
+        public static string WADelete = "";
+        public static string WAUpdate = "";
+        public static string WAList = "";
+        public static string WAPagedList = "";
+        public static string WAAny = "";
+
+        public static string NWAGet = "";
+        public static string NWAGetParameter = "";
+        public static string NWACreate = "";
+        public static string NWADelete = "";
+        public static string NWAUpdate = "";
+        public static string NWAList = "";
+        public static string NWAPagedList = "";
+        public static string NWAAny = "";
     }
 }

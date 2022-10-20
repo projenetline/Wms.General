@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Wms.Integration.API.Middleware;
 using Wms.Integration.Business.Abstract;
 using Wms.Integration.Business.Concrete;
+using Wms.Integration.Core.DataAccess.Utilities.Security.Jwt;
 using Wms.Integration.DataAccess.Abstract;
 using Wms.Integration.DataAccess.Concrete;
 using Wms.Integration.DataAccess.Concrete.Contexts;
@@ -13,7 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-#region Scoped Service - Manager
+#region Scoped Helpers
+builder.Services.AddScoped<ITokenHelper, JwtHelper>();
+#endregion
+#region Scoped Service - Manager  
 builder.Services.AddScoped<IAddressItemService, AddressItemManager>();
 builder.Services.AddScoped<IArpService, ArpManager>();
 builder.Services.AddScoped<IAuthService, AuthManager>();

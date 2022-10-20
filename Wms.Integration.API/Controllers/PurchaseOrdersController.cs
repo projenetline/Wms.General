@@ -10,11 +10,7 @@ namespace Wms.Integration.API.Controllers
     [ApiController]
     public class PurchaseOrdersController : ControllerBase
     {
-        private readonly IPurchaseOrderService _purchaseOrderService;
-        public PurchaseOrdersController(IPurchaseOrderService purchaseOrderService)
-        {
-            _purchaseOrderService = purchaseOrderService;
-        }
+       
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] OrderSlip dto)
         {

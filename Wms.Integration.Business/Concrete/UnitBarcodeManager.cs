@@ -1,37 +1,106 @@
 ﻿using Wms.Integration.Business.Abstract;
 using Wms.Integration.Core.Core.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
+using Wms.Integration.Core.Entities.Abstract;
 using Wms.Integration.DataAccess.Abstract;
+using Wms.Integration.DataAccess.Concrete;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class UnitBarcodeManager : IUnitBarcodeService
     {
-        private readonly IUnitBarcodeDal _unitBarcodeDal;
-        public UnitBarcodeManager(IUnitBarcodeDal unitBarcodeDal)
+        private readonly IUnitBarcodeDal unitBarcodeDal;
+        private readonly ILoggerDal loggerDal;
+        public UnitBarcodeManager(IUnitBarcodeDal unitBarcodeDal, ILoggerDal loggerDal)
         {
-            _unitBarcodeDal = unitBarcodeDal;
+            this.unitBarcodeDal = unitBarcodeDal;
+            this.loggerDal = loggerDal;
         }
 
-        public Task<IDataResult<UnitBarcode>> CreateAsync(UnitBarcode entity)
+        public async Task<IDataResult<UnitBarcode>> CreateAsync(UnitBarcode entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<UnitBarcode>(await unitBarcodeDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "UnitBarcodeManager.CreateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<UnitBarcode>(null, CustomJObject.Instance.General.NotCreate);
+            }
         }
 
-        public Task<IDataResult<UnitBarcode>> DeleteAsync(UnitBarcode entity)
+        public async Task<IDataResult<UnitBarcode>> DeleteAsync(UnitBarcode entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<UnitBarcode>(await unitBarcodeDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "UnitBarcodeManager.DeleteAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<UnitBarcode>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
 
-        public Task<IDataResult<UnitBarcode>> GetAsync(int id)
+        public async Task<IDataResult<UnitBarcode>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<UnitBarcode>(await unitBarcodeDal.GetAsync(s=>s.Id==id), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "UnitBarcodeManager.GetAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<UnitBarcode>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
 
-        public Task<IDataResult<UnitBarcode>> UpdateAsync(UnitBarcode entity)
+        public async Task<IDataResult<UnitBarcode>> UpdateAsync(UnitBarcode entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<UnitBarcode>(await unitBarcodeDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "UnitBarcodeManager.UpdateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<UnitBarcode>(null, CustomJObject.Instance.General.NotUpdate);
+            }
         }
     }
 }

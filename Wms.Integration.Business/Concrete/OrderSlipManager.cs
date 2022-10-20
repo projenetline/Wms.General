@@ -1,15 +1,16 @@
 ﻿using Wms.Integration.Business.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
+using Wms.Integration.DataAccess.Abstract;
 using Wms.Integration.Entities.Concrete;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class OrderSlipManager : IOrderSlipService
     {
-        private readonly IOrderSlipService _orderSlipService;
-        public OrderSlipManager(IOrderSlipService orderSlipService)
+        private readonly IOrderSlipDal _orderSlipDal;
+        public OrderSlipManager(IOrderSlipDal orderSlipDal)
         {
-            _orderSlipService = orderSlipService;
+            _orderSlipDal = orderSlipDal;
         }
         public Task<IDataResult<OrderSlip>> CreateAsync(OrderSlip entity)
         {

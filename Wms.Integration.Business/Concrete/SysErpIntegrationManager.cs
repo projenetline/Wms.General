@@ -1,36 +1,105 @@
 ﻿using Wms.Integration.Business.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
+using Wms.Integration.Core.Entities.Abstract;
 using Wms.Integration.DataAccess.Abstract;
+using Wms.Integration.DataAccess.Concrete;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class SysErpIntegrationManager : ISysErpIntegrationService
     {
         private readonly ISysErpIntegrationDal sysErpIntegrationDal;
-        public SysErpIntegrationManager(ISysErpIntegrationDal sysErpIntegrationDal)
+        private readonly ILoggerDal loggerDal;
+        public SysErpIntegrationManager(ISysErpIntegrationDal sysErpIntegrationDal, ILoggerDal loggerDal)
         {
             this.sysErpIntegrationDal = sysErpIntegrationDal;
+            this.loggerDal = loggerDal;
         }
 
-        public Task<IDataResult<SysErpIntegration>> CreateAsync(SysErpIntegration entity)
+        public async Task<IDataResult<SysErpIntegration>> CreateAsync(SysErpIntegration entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysErpIntegration>(await sysErpIntegrationDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysErpIntegrationManager.CreateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysErpIntegration>(null, CustomJObject.Instance.General.NotCreate);
+            }
         }
 
-        public Task<IDataResult<SysErpIntegration>> DeleteAsync(SysErpIntegration entity)
+        public async Task<IDataResult<SysErpIntegration>> DeleteAsync(SysErpIntegration entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysErpIntegration>(await sysErpIntegrationDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysErpIntegrationManager.DeleteAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysErpIntegration>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
 
-        public Task<IDataResult<SysErpIntegration>> GetAsync(int id)
+        public async Task<IDataResult<SysErpIntegration>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysErpIntegration>(await sysErpIntegrationDal.GetAsync(s=>s.Id==id), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysErpIntegrationManager.GetAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysErpIntegration>(null, CustomJObject.Instance.General.NotGet);
+            }
         }
 
-        public Task<IDataResult<SysErpIntegration>> UpdateAsync(SysErpIntegration entity)
+        public async Task<IDataResult<SysErpIntegration>> UpdateAsync(SysErpIntegration entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysErpIntegration>(await sysErpIntegrationDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysErpIntegrationManager.UpdateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysErpIntegration>(null, CustomJObject.Instance.General.NotUpdate);
+            }
         }
     }
 }

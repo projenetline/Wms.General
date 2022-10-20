@@ -1,37 +1,99 @@
 ﻿using Wms.Integration.Business.Abstract;
-using Wms.Integration.Core.Core.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
 using Wms.Integration.DataAccess.Abstract;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class ItemClassRelationManager : IItemClassRelationService
     {
-        private readonly IItemClassRelationDal _itemClassRelationDal;
-        public ItemClassRelationManager(IItemClassRelationDal itemClassRelationDal)
+        private readonly IItemClassRelationDal itemClassRelationDal;
+        private readonly ILoggerDal loggerDal;
+        public ItemClassRelationManager(IItemClassRelationDal itemClassRelationDal, ILoggerDal loggerDal)
         {
-            _itemClassRelationDal = itemClassRelationDal;
+            this.itemClassRelationDal = itemClassRelationDal;
+            this.loggerDal = loggerDal;
         }
-        public Task<IDataResult<ItemClassRelation>> CreateAsync(ItemClassRelation entity)
+        public async Task<IDataResult<ItemClassRelation>> CreateAsync(ItemClassRelation entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<ItemClassRelation>(await itemClassRelationDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemClassRelationManager.CreateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<ItemClassRelation>(null, CustomJObject.Instance.General.NotCreate);
+            }
         }
-        public Task<IDataResult<ItemClassRelation>> DeleteAsync(ItemClassRelation entity)
+        public async Task<IDataResult<ItemClassRelation>> DeleteAsync(ItemClassRelation entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<ItemClassRelation>(await itemClassRelationDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemClassRelationManager.DeleteAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<ItemClassRelation>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
-        public Task<IDataResult<ItemClassRelation>> GetAsync(int id)
+        public async Task<IDataResult<ItemClassRelation>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<ItemClassRelation>(await itemClassRelationDal.GetAsync(s => s.Id == id), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemClassRelationManager.GetAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<ItemClassRelation>(null, CustomJObject.Instance.General.NotGet);
+            }
         }
-        public Task<IDataResult<IList<ItemClassRelation>>> GetListAsync(ItemClassRelation entity)
+        public async Task<IDataResult<ItemClassRelation>> UpdateAsync(ItemClassRelation entity)
         {
-            throw new NotImplementedException();
-        }
-        public Task<IDataResult<ItemClassRelation>> UpdateAsync(ItemClassRelation entity)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<ItemClassRelation>(await itemClassRelationDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemClassRelationManager.UpdateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<ItemClassRelation>(null, CustomJObject.Instance.General.NotUpdate);
+            }
         }
     }
 }

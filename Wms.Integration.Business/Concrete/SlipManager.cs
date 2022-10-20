@@ -1,36 +1,105 @@
 ﻿using Wms.Integration.Business.Abstract;
 using Wms.Integration.Core.Core.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
+using Wms.Integration.Core.Entities.Abstract;
 using Wms.Integration.DataAccess.Abstract;
+using Wms.Integration.DataAccess.Concrete;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class SlipManager : ISlipService
     {
         private readonly ISlipDal slipDal;
-        public SlipManager(ISlipDal slipDal)
+        private readonly ILoggerDal loggerDal;
+        public SlipManager(ISlipDal slipDal, ILoggerDal loggerDal)
         {
             this.slipDal = slipDal;
+            this.loggerDal = loggerDal;
         }
-        public Task<IDataResult<Slip>> CreateAsync(Slip entity)
+        public async Task<IDataResult<Slip>> CreateAsync(Slip entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<Slip>(await slipDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SlipManager.CreateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<Slip>(null, CustomJObject.Instance.General.NotCreate);
+            }
         }
 
-        public Task<IDataResult<Slip>> DeleteAsync(Slip entity)
+        public async Task<IDataResult<Slip>> DeleteAsync(Slip entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<Slip>(await slipDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SlipManager.DeleteAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<Slip>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
 
-        public Task<IDataResult<Slip>> GetAsync(int id)
+        public async Task<IDataResult<Slip>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<Slip>(await slipDal.GetAsync(s => s.Id == id), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SlipManager.GetAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<Slip>(null, CustomJObject.Instance.General.NotGet);
+            }
         }
 
-        public Task<IDataResult<Slip>> UpdateAsync(Slip entity)
+        public async Task<IDataResult<Slip>> UpdateAsync(Slip entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<Slip>(await slipDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SlipManager.UpdateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<Slip>(null, CustomJObject.Instance.General.NotUpdate);
+            }
         }
     }
 }

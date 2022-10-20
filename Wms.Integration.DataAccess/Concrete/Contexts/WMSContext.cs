@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 using Wms.Integration.Core.Entities.Concrete;
 using Wms.Integration.Entities.Concrete;
+
 namespace Wms.Integration.DataAccess.Concrete.Contexts
 {
     public partial class WMSContext : DbContext
@@ -20,103 +22,104 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
         public virtual DbSet<UserOperationClaim> UserOperationClaims { get; set; }
 
         //---------------------------------------------------------------
-        public virtual DbSet<EfAddressItemDal> AddressItems { get; set; }
+        public virtual DbSet<AddressItem> AddressItems { get; set; }
         public virtual DbSet<Arp> Arps { get; set; }
-        public virtual DbSet<EfCarrierDal> Carriers { get; set; }
+        public virtual DbSet<Carrier> Carriers { get; set; }
         public virtual DbSet<Container> Containers { get; set; }
         public virtual DbSet<Decomposition> Decompositions { get; set; }
         public virtual DbSet<DecompositionLine> DecompositionLines { get; set; }
         public virtual DbSet<DecompositionShelf> DecompositionShelfs { get; set; }
         public virtual DbSet<DecompositionShelves> DecompositionShelves { get; set; }
-        public virtual DbSet<EfDocumentDal> Documents { get; set; }
-        public virtual DbSet<IDriverDal> Drivers { get; set; }
-        public virtual DbSet<EfErpinvTotalDal> ErpinvTotals { get; set; }
-        public virtual DbSet<EfFormLayoutDal> FormLayouts { get; set; }
-        public virtual DbSet<EfHistoryDal> Histories { get; set; }
-        public virtual DbSet<EfHistoryDetailDal> HistoryDetails { get; set; }
-        public virtual DbSet<EfItemDal> Items { get; set; }
-        public virtual DbSet<EfItemClassRelationDal> ItemClassRelations { get; set; }
-        public virtual DbSet<EfItemContentDal> ItemContents { get; set; }
-        public virtual DbSet<EfItemExtraDal> ItemExtras { get; set; }
-        public virtual DbSet<EfItemParameterDal> ItemParameters { get; set; }
-        public virtual DbSet<EfItemTotalsReportViewDal> ItemTotalsReportViews { get; set; }
-        public virtual DbSet<EfItemTotalsViewDal> ItemTotalsViews { get; set; }
-        public virtual DbSet<EfItemTrackingTotalsViewDal> ItemTrackingTotalsViews { get; set; }
-        public virtual DbSet<EfItemUnitDal> ItemUnits { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<Driver> Drivers { get; set; }
+        public virtual DbSet<ErpinvTotal> ErpinvTotals { get; set; }
+        public virtual DbSet<FormLayout> FormLayouts { get; set; }
+        public virtual DbSet<History> Histories { get; set; }
+        public virtual DbSet<HistoryDetail> HistoryDetails { get; set; }
+        public virtual DbSet<HttpLogger> HttpLoggers { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<ItemClassRelation> ItemClassRelations { get; set; }
+        public virtual DbSet<ItemContent> ItemContents { get; set; }
+        public virtual DbSet<ItemExtra> ItemExtras { get; set; }
+        public virtual DbSet<ItemParameter> ItemParameters { get; set; }
+        public virtual DbSet<ItemTotalsReportView> ItemTotalsReportViews { get; set; }
+        public virtual DbSet<ItemTotalsView> ItemTotalsViews { get; set; }
+        public virtual DbSet<ItemTrackingTotalsView> ItemTrackingTotalsViews { get; set; }
+        public virtual DbSet<ItemUnit> ItemUnits { get; set; }
         public virtual DbSet<Logger> Loggers { get; set; }
-        public virtual DbSet<EfLoginHistoryDal> LoginHistories { get; set; }
-        public virtual DbSet<EfOrderSlipDal> OrderSlips { get; set; }
-        public virtual DbSet<EfOrderSlipLineDal> OrderSlipLines { get; set; }
-        public virtual DbSet<EfPlanningSlipDal> PlanningSlips { get; set; }
-        public virtual DbSet<EfPlanningSlipLineDal> PlanningSlipLines { get; set; }
-        public virtual DbSet<EfProductionOrderDal> ProductionOrders { get; set; }
-        public virtual DbSet<EfProductionOrderLineDal> ProductionOrderLines { get; set; }
-        public virtual DbSet<EfProjectDal> Projects { get; set; }
-        public virtual DbSet<EfReservationSlipDal> ReservationSlips { get; set; }
-        public virtual DbSet<EfReservationSlipLineDal> ReservationSlipLines { get; set; }
-        public virtual DbSet<EfSalesPersonDal> SalesPeople { get; set; }
-        public virtual DbSet<EfShiftDal> Shifts { get; set; }
-        public virtual DbSet<EfShiftPeriodDal> ShiftPeriods { get; set; }
-        public virtual DbSet<EfShipmentAddressDal> ShipmentAddresses { get; set; }
-        public virtual DbSet<EfShipmentDayDal> ShipmentDays { get; set; }
-        public virtual DbSet<EfSlipDal> Slips { get; set; }
-        public virtual DbSet<efSlipLineDal> SlipLines { get; set; }
-        public virtual DbSet<EfSysAddressDal> SysAddresses { get; set; }
-        public virtual DbSet<EfSysAuthCodeDal> SysAuthCodes { get; set; }
-        public virtual DbSet<EfSysBlockingExceptionDal> SysBlockingExceptions { get; set; }
-        public virtual DbSet<EfSysBlockingTypeDal> SysBlockingTypes { get; set; }
-        public virtual DbSet<EfSysContainerRelationDal> SysContainerRelations { get; set; }
-        public virtual DbSet<EfSysContainerTypeDal> SysContainerTypes { get; set; }
-        public virtual DbSet<EfSysCustomCodeDal> SysCustomCodes { get; set; }
-        public virtual DbSet<EfSysCustomListColumnDal> SysCustomListColumns { get; set; }
-        public virtual DbSet<EfSysCustomReportDal> SysCustomReports { get; set; }
-        public virtual DbSet<EfSysCustomRuleDal> SysCustomRules { get; set; }
-        public virtual DbSet<efSysCustomRuleActionDal> SysCustomRuleActions { get; set; }
-        public virtual DbSet<EfSysCustomSlipTypeDal> SysCustomSlipTypes { get; set; }
-        public virtual DbSet<EfSysCustomStateDal> SysCustomStates { get; set; }
-        public virtual DbSet<EfSysCustomTableDal> SysCustomTables { get; set; }
-        public virtual DbSet<EfSysDepartmentDal> SysDepartments { get; set; }
-        public virtual DbSet<EfSysDivisionDal> SysDivisions { get; set; }
-        public virtual DbSet<EfSysErpDal> SysErps { get; set; }
-        public virtual DbSet<EfSysErpFirmDal> SysErpFirms { get; set; }
-        public virtual DbSet<EfSysErpIntegrationDal> SysErpIntegrations { get; set; }
-        public virtual DbSet<EfSysFactoryDal> SysFactories { get; set; }
-        public virtual DbSet<EfSysLogDal> SysLogs { get; set; }
-        public virtual DbSet<EfSysMenuRightDal> SysMenuRights { get; set; }
-        public virtual DbSet<EfSysNetLockDal> SysNetLocks { get; set; }
-        public virtual DbSet<EfSysParameterDal> SysParameters { get; set; }
-        public virtual DbSet<EfSysPasswordHistoryDal> SysPasswordHistories { get; set; }
-        public virtual DbSet<EfSysPasswordPolicyDal> SysPasswordPolicies { get; set; }
-        public virtual DbSet<EfSysPrinterDal> SysPrinters { get; set; }
-        public virtual DbSet<EfSysRoleDal> SysRoles { get; set; }
-        public virtual DbSet<EfSysScriptDal> SysScripts { get; set; }
-        public virtual DbSet<EfSysSessionDal> SysSessions { get; set; }
-        public virtual DbSet<EfSysUserDal> SysUsers { get; set; }
-        public virtual DbSet<EfSysUserWarehouseDal> SysUserWarehouses { get; set; }
-        public virtual DbSet<EfSysWarehouseDal> SysWarehouses { get; set; }
-        public virtual DbSet<EfSysWarehouseBlockDal> SysWarehouseBlocks { get; set; }
-        public virtual DbSet<EfSysWarehouseFloorDal> SysWarehouseFloors { get; set; }
-        public virtual DbSet<EfSysWarehouseZoneDal> SysWarehouseZones { get; set; }
-        public virtual DbSet<EfTransactionDetailDal> TransactionDetails { get; set; }
-        public virtual DbSet<EfTransactionDetailViewDal> TransactionDetailViews { get; set; }
-        public virtual DbSet<EfUnitBarcodeDal> UnitBarcodes { get; set; }
-        public virtual DbSet<efVariantTotalsViewDal> VariantTotalsViews { get; set; }
-        public virtual DbSet<EfVariantTrackingTotalsViewDal> VariantTrackingTotalsViews { get; set; }
-        public virtual DbSet<EfVehicleDal> Vehicles { get; set; }
-        public virtual DbSet<EfWorkOrderDal> WorkOrders { get; set; }
-        public virtual DbSet<EfWorkOrderLineDal> WorkOrderLines { get; set; }
+        public virtual DbSet<LoginHistory> LoginHistories { get; set; }
+        public virtual DbSet<OrderSlip> OrderSlips { get; set; }
+        public virtual DbSet<OrderSlipLine> OrderSlipLines { get; set; }
+        public virtual DbSet<PlanningSlip> PlanningSlips { get; set; }
+        public virtual DbSet<PlanningSlipLine> PlanningSlipLines { get; set; }
+        public virtual DbSet<ProductionOrder> ProductionOrders { get; set; }
+        public virtual DbSet<ProductionOrderLine> ProductionOrderLines { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<ReservationSlip> ReservationSlips { get; set; }
+        public virtual DbSet<ReservationSlipLine> ReservationSlipLines { get; set; }
+        public virtual DbSet<SalesPerson> SalesPeople { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
+        public virtual DbSet<ShiftPeriod> ShiftPeriods { get; set; }
+        public virtual DbSet<ShipmentAddress> ShipmentAddresses { get; set; }
+        public virtual DbSet<ShipmentDay> ShipmentDays { get; set; }
+        public virtual DbSet<Slip> Slips { get; set; }
+        public virtual DbSet<SlipLine> SlipLines { get; set; }
+        public virtual DbSet<SysAddress> SysAddresses { get; set; }
+        public virtual DbSet<SysAuthCode> SysAuthCodes { get; set; }
+        public virtual DbSet<SysBlockingException> SysBlockingExceptions { get; set; }
+        public virtual DbSet<SysBlockingType> SysBlockingTypes { get; set; }
+        public virtual DbSet<SysContainerRelation> SysContainerRelations { get; set; }
+        public virtual DbSet<SysContainerType> SysContainerTypes { get; set; }
+        public virtual DbSet<SysCustomCode> SysCustomCodes { get; set; }
+        public virtual DbSet<SysCustomListColumn> SysCustomListColumns { get; set; }
+        public virtual DbSet<SysCustomReport> SysCustomReports { get; set; }
+        public virtual DbSet<SysCustomRule> SysCustomRules { get; set; }
+        public virtual DbSet<SysCustomRuleAction> SysCustomRuleActions { get; set; }
+        public virtual DbSet<SysCustomSlipType> SysCustomSlipTypes { get; set; }
+        public virtual DbSet<SysCustomState> SysCustomStates { get; set; }
+        public virtual DbSet<SysCustomTable> SysCustomTables { get; set; }
+        public virtual DbSet<SysDepartment> SysDepartments { get; set; }
+        public virtual DbSet<SysDivision> SysDivisions { get; set; }
+        public virtual DbSet<SysErp> SysErps { get; set; }
+        public virtual DbSet<SysErpFirm> SysErpFirms { get; set; }
+        public virtual DbSet<SysErpIntegration> SysErpIntegrations { get; set; }
+        public virtual DbSet<SysFactory> SysFactories { get; set; }
+        public virtual DbSet<SysLog> SysLogs { get; set; }
+        public virtual DbSet<SysMenuRight> SysMenuRights { get; set; }
+        public virtual DbSet<SysNetLock> SysNetLocks { get; set; }
+        public virtual DbSet<SysParameter> SysParameters { get; set; }
+        public virtual DbSet<SysPasswordHistory> SysPasswordHistories { get; set; }
+        public virtual DbSet<SysPasswordPolicy> SysPasswordPolicies { get; set; }
+        public virtual DbSet<SysPrinter> SysPrinters { get; set; }
+        public virtual DbSet<SysRole> SysRoles { get; set; }
+        public virtual DbSet<SysScript> SysScripts { get; set; }
+        public virtual DbSet<SysSession> SysSessions { get; set; }
+        public virtual DbSet<SysUser> SysUsers { get; set; }
+        public virtual DbSet<SysUserWarehouse> SysUserWarehouses { get; set; }
+        public virtual DbSet<SysWarehouse> SysWarehouses { get; set; }
+        public virtual DbSet<SysWarehouseBlock> SysWarehouseBlocks { get; set; }
+        public virtual DbSet<SysWarehouseFloor> SysWarehouseFloors { get; set; }
+        public virtual DbSet<SysWarehouseZone> SysWarehouseZones { get; set; }
+        public virtual DbSet<TransactionDetail> TransactionDetails { get; set; }
+        public virtual DbSet<TransactionDetailView> TransactionDetailViews { get; set; }
+        public virtual DbSet<UnitBarcode> UnitBarcodes { get; set; }
+        public virtual DbSet<VariantTotalsView> VariantTotalsViews { get; set; }
+        public virtual DbSet<VariantTrackingTotalsView> VariantTrackingTotalsViews { get; set; }
+        public virtual DbSet<Vehicle> Vehicles { get; set; }
+        public virtual DbSet<WorkOrder> WorkOrders { get; set; }
+        public virtual DbSet<WorkOrderLine> WorkOrderLines { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=NETLINE;Database=WMS;user id=sa;password=net_123");
+                optionsBuilder.UseSqlServer("Server=NETLINE;Database=WMS2;user id=sa;password=net_123");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EfAddressItemDal>(entity =>
+            modelBuilder.Entity<AddressItem>(entity =>
             {
                 entity.ToTable("AddressItem");
 
@@ -216,7 +219,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.Url).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<EfCarrierDal>(entity =>
+            modelBuilder.Entity<Carrier>(entity =>
             {
                 entity.ToTable("Carrier");
 
@@ -284,7 +287,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                       .OnDelete(DeleteBehavior.ClientSetNull)
                       .HasConstraintName("fk_Container_ContainerTypeId");
             });
-          
+
             modelBuilder.Entity<Decomposition>(entity =>
             {
                 entity.ToTable("Decomposition");
@@ -319,7 +322,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                       .HasForeignKey(s => s.DecompositionShelfId);
                 // .HasConstraintName("fk_Decomposition_DecompositionShelfId");
             });
-          
+
             modelBuilder.Entity<DecompositionLine>(entity =>
             {
                 entity.ToTable("DecompositionLine");
@@ -363,7 +366,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                      .HasForeignKey(s => s.DecompositionShelvesId);
                 //.HasConstraintName("fk_Decomposition_DecompositionShelvesId");
             });
-          
+
             modelBuilder.Entity<DecompositionShelf>(entity =>
             {
                 entity.ToTable("DecompositionShelf");
@@ -394,7 +397,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                       .HasColumnType(SqlDbType.Int.ToString());
 
             });
-         
+
             modelBuilder.Entity<DecompositionShelves>(entity =>
             {
                 entity.ToTable("DecompositionShelves");
@@ -432,7 +435,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 //.HasConstraintName("fk_Decomposition_DecompositionShelfId");
             });
 
-            modelBuilder.Entity<EfDocumentDal>(entity =>
+            modelBuilder.Entity<Document>(entity =>
             {
                 entity.ToTable("Document");
 
@@ -447,7 +450,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<IDriverDal>(entity =>
+            modelBuilder.Entity<Driver>(entity =>
             {
                 entity.ToTable("Driver");
 
@@ -485,7 +488,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_Driver_UserId");
             });
 
-            modelBuilder.Entity<EfErpinvTotalDal>(entity =>
+            modelBuilder.Entity<ErpinvTotal>(entity =>
             {
                 entity.ToTable("ERPInvTotal");
 
@@ -532,7 +535,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.Variantref).HasColumnName("VARIANTREF");
             });
 
-            modelBuilder.Entity<EfFormLayoutDal>(entity =>
+            modelBuilder.Entity<FormLayout>(entity =>
             {
                 entity.ToTable("FormLayout");
 
@@ -558,7 +561,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_FormLayout_UserId");
             });
 
-            modelBuilder.Entity<EfHistoryDal>(entity =>
+            modelBuilder.Entity<History>(entity =>
             {
                 entity.ToTable("History");
 
@@ -573,7 +576,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.TransactionGuid).HasMaxLength(255);
             });
 
-            modelBuilder.Entity<EfHistoryDetailDal>(entity =>
+            modelBuilder.Entity<HistoryDetail>(entity =>
             {
                 entity.ToTable("HistoryDetail");
 
@@ -586,7 +589,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.FieldValue).IsRequired();
             });
 
-            modelBuilder.Entity<EfItemDal>(entity =>
+            modelBuilder.Entity<Item>(entity =>
             {
                 entity.ToTable("Item");
 
@@ -654,7 +657,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_Item_ParentItemId");
             });
 
-            modelBuilder.Entity<EfItemClassRelationDal>(entity =>
+            modelBuilder.Entity<ItemClassRelation>(entity =>
             {
                 entity.ToTable("ItemClassRelation");
 
@@ -681,7 +684,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_ItemClassRelation_ItemId");
             });
 
-            modelBuilder.Entity<EfItemContentDal>(entity =>
+            modelBuilder.Entity<ItemContent>(entity =>
             {
                 entity.ToTable("ItemContent");
 
@@ -723,8 +726,9 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_ItemContent_UnitId");
             });
 
-            modelBuilder.Entity<EfItemExtraDal>(entity =>
+            modelBuilder.Entity<ItemExtra>(entity =>
             {
+                entity.ToTable("ItemExtra");
                 entity.Property(s => s.Id)
                         .IsRequired()
                       .HasColumnType(SqlDbType.Int.ToString());
@@ -738,8 +742,8 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                    .HasColumnType(SqlDbType.NVarChar.ToString())
                    .HasMaxLength(250);
             });
-            
-            modelBuilder.Entity<EfItemParameterDal>(entity =>
+
+            modelBuilder.Entity<ItemParameter>(entity =>
             {
                 entity.ToTable("ItemParameter");
 
@@ -770,7 +774,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_ItemParameter_WarehouseId");
             });
 
-            modelBuilder.Entity<EfItemTotalsReportViewDal>(entity =>
+            modelBuilder.Entity<ItemTotalsReportView>(entity =>
             {
                 entity.HasNoKey();
 
@@ -827,7 +831,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasColumnName("Varyant Kodu");
             });
 
-            modelBuilder.Entity<EfItemTotalsViewDal>(entity =>
+            modelBuilder.Entity<ItemTotalsView>(entity =>
             {
                 entity.HasNoKey();
 
@@ -836,7 +840,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.ActualStock).HasColumnType("numeric(38, 6)");
             });
 
-            modelBuilder.Entity<EfItemTrackingTotalsViewDal>(entity =>
+            modelBuilder.Entity<ItemTrackingTotalsView>(entity =>
             {
                 entity.HasNoKey();
 
@@ -847,7 +851,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.TrackingNumber).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<EfItemUnitDal>(entity =>
+            modelBuilder.Entity<ItemUnit>(entity =>
             {
                 entity.ToTable("ItemUnit");
 
@@ -924,7 +928,34 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                  .HasMaxLength(250);
             });
 
-            modelBuilder.Entity<EfLoginHistoryDal>(entity =>
+            modelBuilder.Entity<HttpLogger>(entity =>
+            {
+                entity.ToTable("HttpLogger");
+                entity.Property(s => s.Id)
+                .IsRequired()
+                .HasColumnType(SqlDbType.UniqueIdentifier.ToString());
+
+                entity.Property(s => s.FullUrl)
+                .HasColumnType(SqlDbType.NVarChar.ToString() + "(max)");
+                entity.Property(s => s.Body)
+                       .HasColumnType(SqlDbType.NVarChar.ToString() + "(max)");
+                entity.Property(s => s.LocalIp)
+                       .HasColumnType(SqlDbType.NVarChar.ToString() + "(max)");
+                entity.Property(s => s.RemoteIp)
+                       .HasColumnType(SqlDbType.NVarChar.ToString() + "(max)");
+                entity.Property(s => s.LocalPort)
+                       .HasColumnType(SqlDbType.Int.ToString());
+                entity.Property(s => s.RemotePort)
+                        .HasColumnType(SqlDbType.Int.ToString());
+                entity.Property(s => s.ResponseStatu)
+                        .HasColumnType(SqlDbType.Int.ToString());
+                entity.Property(s => s.Response)
+                      .HasColumnType(SqlDbType.NVarChar.ToString() + "(max)");
+
+                entity.HasKey(s => s.Id);
+            });
+
+            modelBuilder.Entity<LoginHistory>(entity =>
             {
                 entity.ToTable("LoginHistory");
 
@@ -941,7 +972,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<EfOrderSlipDal>(entity =>
+            modelBuilder.Entity<OrderSlip>(entity =>
             {
                 entity.ToTable("OrderSlip");
 
@@ -1076,7 +1107,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_OrderSlip_WarehouseId");
             });
 
-            modelBuilder.Entity<EfOrderSlipLineDal>(entity =>
+            modelBuilder.Entity<OrderSlipLine>(entity =>
             {
                 entity.ToTable("OrderSlipLine");
 
@@ -1194,7 +1225,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_OrderSlipLine_WarehouseId");
             });
 
-            modelBuilder.Entity<EfPlanningSlipDal>(entity =>
+            modelBuilder.Entity<PlanningSlip>(entity =>
             {
                 entity.ToTable("PlanningSlip");
 
@@ -1316,7 +1347,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_PlanningSlip_WarehouseId");
             });
 
-            modelBuilder.Entity<EfPlanningSlipLineDal>(entity =>
+            modelBuilder.Entity<PlanningSlipLine>(entity =>
             {
                 entity.ToTable("PlanningSlipLine");
 
@@ -1429,7 +1460,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_PlanningSlipLine_WarehouseId");
             });
 
-            modelBuilder.Entity<EfProductionOrderDal>(entity =>
+            modelBuilder.Entity<ProductionOrder>(entity =>
             {
                 entity.ToTable("ProductionOrder");
 
@@ -1523,7 +1554,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_ProductionOrder_UnitId");
             });
 
-            modelBuilder.Entity<EfProductionOrderLineDal>(entity =>
+            modelBuilder.Entity<ProductionOrderLine>(entity =>
             {
                 entity.ToTable("ProductionOrderLine");
 
@@ -1619,7 +1650,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_ProductionOrderLine_VariantId");
             });
 
-            modelBuilder.Entity<EfProjectDal>(entity =>
+            modelBuilder.Entity<Project>(entity =>
             {
                 entity.ToTable("Project");
 
@@ -1660,7 +1691,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<EfReservationSlipDal>(entity =>
+            modelBuilder.Entity<ReservationSlip>(entity =>
             {
                 entity.ToTable("ReservationSlip");
 
@@ -1736,7 +1767,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_ReservationSlip_WorkOrderId");
             });
 
-            modelBuilder.Entity<EfReservationSlipLineDal>(entity =>
+            modelBuilder.Entity<ReservationSlipLine>(entity =>
             {
                 entity.ToTable("ReservationSlipLine");
 
@@ -1880,7 +1911,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_ReservationSlipLine_WorkOrderLineId");
             });
 
-            modelBuilder.Entity<EfSalesPersonDal>(entity =>
+            modelBuilder.Entity<SalesPerson>(entity =>
             {
                 entity.ToTable("SalesPerson");
 
@@ -1905,7 +1936,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.Name).HasMaxLength(200);
             });
 
-            modelBuilder.Entity<EfShiftDal>(entity =>
+            modelBuilder.Entity<Shift>(entity =>
             {
                 entity.ToTable("Shift");
 
@@ -1940,7 +1971,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_Shift_WarehouseId");
             });
 
-            modelBuilder.Entity<EfShiftPeriodDal>(entity =>
+            modelBuilder.Entity<ShiftPeriod>(entity =>
             {
                 entity.ToTable("ShiftPeriod");
 
@@ -1960,7 +1991,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<EfShipmentAddressDal>(entity =>
+            modelBuilder.Entity<ShipmentAddress>(entity =>
             {
                 entity.ToTable("ShipmentAddress");
 
@@ -2029,7 +2060,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.Url).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<EfShipmentDayDal>(entity =>
+            modelBuilder.Entity<ShipmentDay>(entity =>
             {
                 entity.ToTable("ShipmentDay");
 
@@ -2058,7 +2089,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_ShipmentDay_ShipmentAddressId");
             });
 
-            modelBuilder.Entity<EfSlipDal>(entity =>
+            modelBuilder.Entity<Slip>(entity =>
             {
                 entity.ToTable("Slip");
 
@@ -2237,7 +2268,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_Slip_WorkOrderId");
             });
 
-            modelBuilder.Entity<efSlipLineDal>(entity =>
+            modelBuilder.Entity<SlipLine>(entity =>
             {
                 entity.ToTable("SlipLine");
 
@@ -2420,7 +2451,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SlipLine_WorkOrderLineId");
             });
 
-            modelBuilder.Entity<EfSysAddressDal>(entity =>
+            modelBuilder.Entity<SysAddress>(entity =>
             {
                 entity.ToTable("SysAddress");
 
@@ -2490,7 +2521,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysAddress_ZoneId");
             });
 
-            modelBuilder.Entity<EfSysAuthCodeDal>(entity =>
+            modelBuilder.Entity<SysAuthCode>(entity =>
             {
                 entity.ToTable("SysAuthCode");
 
@@ -2516,7 +2547,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysAuthCode_UserId");
             });
 
-            modelBuilder.Entity<EfSysBlockingExceptionDal>(entity =>
+            modelBuilder.Entity<SysBlockingException>(entity =>
             {
                 entity.ToTable("SysBlockingException");
 
@@ -2532,7 +2563,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysBlockingException_Type");
             });
 
-            modelBuilder.Entity<EfSysBlockingTypeDal>(entity =>
+            modelBuilder.Entity<SysBlockingType>(entity =>
             {
                 entity.ToTable("SysBlockingType");
 
@@ -2554,7 +2585,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<EfSysContainerRelationDal>(entity =>
+            modelBuilder.Entity<SysContainerRelation>(entity =>
             {
                 entity.ToTable("SysContainerRelation");
 
@@ -2578,7 +2609,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysContainerRelation_ParentId");
             });
 
-            modelBuilder.Entity<EfSysContainerTypeDal>(entity =>
+            modelBuilder.Entity<SysContainerType>(entity =>
             {
                 entity.ToTable("SysContainerType");
 
@@ -2622,7 +2653,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.Width).HasColumnType("numeric(28, 8)");
             });
 
-            modelBuilder.Entity<EfSysCustomCodeDal>(entity =>
+            modelBuilder.Entity<SysCustomCode>(entity =>
             {
                 entity.ToTable("SysCustomCode");
 
@@ -2643,7 +2674,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<EfSysCustomListColumnDal>(entity =>
+            modelBuilder.Entity<SysCustomListColumn>(entity =>
             {
                 entity.ToTable("SysCustomListColumn");
 
@@ -2670,7 +2701,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysCustomListColumn_ReportId");
             });
 
-            modelBuilder.Entity<EfSysCustomReportDal>(entity =>
+            modelBuilder.Entity<SysCustomReport>(entity =>
             {
                 entity.ToTable("SysCustomReport");
 
@@ -2694,7 +2725,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<EfSysCustomRuleDal>(entity =>
+            modelBuilder.Entity<SysCustomRule>(entity =>
             {
                 entity.ToTable("SysCustomRule");
 
@@ -2734,7 +2765,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<efSysCustomRuleActionDal>(entity =>
+            modelBuilder.Entity<SysCustomRuleAction>(entity =>
             {
                 entity.ToTable("SysCustomRuleAction");
 
@@ -2747,7 +2778,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysCustomRuleAction_RuleId");
             });
 
-            modelBuilder.Entity<EfSysCustomSlipTypeDal>(entity =>
+            modelBuilder.Entity<SysCustomSlipType>(entity =>
             {
                 entity.ToTable("SysCustomSlipType");
 
@@ -2766,7 +2797,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<EfSysCustomStateDal>(entity =>
+            modelBuilder.Entity<SysCustomState>(entity =>
             {
                 entity.ToTable("SysCustomState");
 
@@ -2784,7 +2815,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.StateName).IsRequired();
             });
 
-            modelBuilder.Entity<EfSysCustomTableDal>(entity =>
+            modelBuilder.Entity<SysCustomTable>(entity =>
             {
                 entity.ToTable("SysCustomTable");
 
@@ -2810,7 +2841,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<EfSysDepartmentDal>(entity =>
+            modelBuilder.Entity<SysDepartment>(entity =>
             {
                 entity.ToTable("SysDepartment");
 
@@ -2831,7 +2862,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.Name).HasMaxLength(200);
             });
 
-            modelBuilder.Entity<EfSysDivisionDal>(entity =>
+            modelBuilder.Entity<SysDivision>(entity =>
             {
                 entity.ToTable("SysDivision");
 
@@ -2852,7 +2883,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.Name).HasMaxLength(200);
             });
 
-            modelBuilder.Entity<EfSysErpDal>(entity =>
+            modelBuilder.Entity<SysErp>(entity =>
             {
                 entity.ToTable("SysErp");
 
@@ -2905,7 +2936,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.UserName).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<EfSysErpFirmDal>(entity =>
+            modelBuilder.Entity<SysErpFirm>(entity =>
             {
                 entity.ToTable("SysErpFirm");
 
@@ -2929,7 +2960,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysErpFirm_ErpId");
             });
 
-            modelBuilder.Entity<EfSysErpIntegrationDal>(entity =>
+            modelBuilder.Entity<SysErpIntegration>(entity =>
             {
                 entity.ToTable("SysErpIntegration");
 
@@ -2966,7 +2997,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysErpIntegration_ErpId");
             });
 
-            modelBuilder.Entity<EfSysFactoryDal>(entity =>
+            modelBuilder.Entity<SysFactory>(entity =>
             {
                 entity.ToTable("SysFactory");
 
@@ -2994,7 +3025,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysFactory_DivisionId");
             });
 
-            modelBuilder.Entity<EfSysLogDal>(entity =>
+            modelBuilder.Entity<SysLog>(entity =>
             {
                 entity.ToTable("SysLog");
 
@@ -3039,7 +3070,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.UserName).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<EfSysMenuRightDal>(entity =>
+            modelBuilder.Entity<SysMenuRight>(entity =>
             {
                 entity.ToTable("SysMenuRight");
 
@@ -3056,7 +3087,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysMenuRight_RoleId");
             });
 
-            modelBuilder.Entity<EfSysNetLockDal>(entity =>
+            modelBuilder.Entity<SysNetLock>(entity =>
             {
                 entity.ToTable("SysNetLock");
 
@@ -3080,7 +3111,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysNetLock_CreatedBy");
             });
 
-            modelBuilder.Entity<EfSysParameterDal>(entity =>
+            modelBuilder.Entity<SysParameter>(entity =>
             {
                 entity.ToTable("SysParameter");
 
@@ -3098,7 +3129,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.ParameterTypeId).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<EfSysPasswordHistoryDal>(entity =>
+            modelBuilder.Entity<SysPasswordHistory>(entity =>
             {
                 entity.ToTable("SysPasswordHistory");
 
@@ -3116,7 +3147,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysPasswordHistory_UserId");
             });
 
-            modelBuilder.Entity<EfSysPasswordPolicyDal>(entity =>
+            modelBuilder.Entity<SysPasswordPolicy>(entity =>
             {
                 entity.ToTable("SysPasswordPolicy");
 
@@ -3133,7 +3164,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.PasswordExpression).HasMaxLength(200);
             });
 
-            modelBuilder.Entity<EfSysPrinterDal>(entity =>
+            modelBuilder.Entity<SysPrinter>(entity =>
             {
                 entity.ToTable("SysPrinter");
 
@@ -3155,7 +3186,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.Name).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<EfSysRoleDal>(entity =>
+            modelBuilder.Entity<SysRole>(entity =>
             {
                 entity.ToTable("SysRole");
 
@@ -3180,7 +3211,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysRole_PolicyId");
             });
 
-            modelBuilder.Entity<EfSysScriptDal>(entity =>
+            modelBuilder.Entity<SysScript>(entity =>
             {
                 entity.ToTable("SysScript");
 
@@ -3200,7 +3231,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasMaxLength(100);
             });
 
-            modelBuilder.Entity<EfSysSessionDal>(entity =>
+            modelBuilder.Entity<SysSession>(entity =>
             {
                 entity.ToTable("SysSession");
 
@@ -3214,7 +3245,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysSession_UserId");
             });
 
-            modelBuilder.Entity<EfSysUserDal>(entity =>
+            modelBuilder.Entity<SysUser>(entity =>
             {
                 entity.ToTable("SysUser");
 
@@ -3312,7 +3343,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysUser_ScriptId");
             });
 
-            modelBuilder.Entity<EfSysUserWarehouseDal>(entity =>
+            modelBuilder.Entity<SysUserWarehouse>(entity =>
             {
                 entity.ToTable("SysUserWarehouse");
 
@@ -3341,7 +3372,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysUserWarehouse_WarehouseId");
             });
 
-            modelBuilder.Entity<EfSysWarehouseDal>(entity =>
+            modelBuilder.Entity<SysWarehouse>(entity =>
             {
                 entity.ToTable("SysWarehouse");
 
@@ -3403,7 +3434,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysWarehouse_FactoryId");
             });
 
-            modelBuilder.Entity<EfSysWarehouseBlockDal>(entity =>
+            modelBuilder.Entity<SysWarehouseBlock>(entity =>
             {
                 entity.ToTable("SysWarehouseBlock");
 
@@ -3443,7 +3474,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysWarehouseBlock_WarehouseId");
             });
 
-            modelBuilder.Entity<EfSysWarehouseFloorDal>(entity =>
+            modelBuilder.Entity<SysWarehouseFloor>(entity =>
             {
                 entity.ToTable("SysWarehouseFloor");
 
@@ -3473,7 +3504,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysWarehouseFloor_WarehouseId");
             });
 
-            modelBuilder.Entity<EfSysWarehouseZoneDal>(entity =>
+            modelBuilder.Entity<SysWarehouseZone>(entity =>
             {
                 entity.ToTable("SysWarehouseZone");
 
@@ -3517,7 +3548,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_SysWarehouseZone_WarehouseId");
             });
 
-            modelBuilder.Entity<EfTransactionDetailDal>(entity =>
+            modelBuilder.Entity<TransactionDetail>(entity =>
             {
                 entity.ToTable("TransactionDetail");
 
@@ -3630,7 +3661,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_TransactionDetail_WorkOrderLineId");
             });
 
-            modelBuilder.Entity<EfTransactionDetailViewDal>(entity =>
+            modelBuilder.Entity<TransactionDetailView>(entity =>
             {
                 entity.HasNoKey();
 
@@ -3663,7 +3694,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.TrackingNumber).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<EfUnitBarcodeDal>(entity =>
+            modelBuilder.Entity<UnitBarcode>(entity =>
             {
                 entity.ToTable("UnitBarcode");
 
@@ -3713,7 +3744,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(s => s.LastName)
                       .HasColumnType(SqlDbType.NVarChar.ToString());
 
-                entity.Property(s=>s.Id)
+                entity.Property(s => s.Id)
                       .HasColumnType(SqlDbType.Int.ToString());
 
                 entity.Property(s => s.PasswordSalt)
@@ -3728,10 +3759,10 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
             modelBuilder.Entity<OperationClaim>(entity =>
             {
                 entity.ToTable("OperationClaims");
-                
+
                 entity.Property(s => s.Id)
                     .HasColumnType(SqlDbType.Int.ToString());
-                
+
                 entity.HasKey(s => s.Id);
 
                 entity.Property(s => s.Name)
@@ -3753,14 +3784,14 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
 
                 entity.HasOne(s => s.User)
                       .WithMany(s => s.OperationClaims)
-                      .HasForeignKey(s=>s.UserId);
+                      .HasForeignKey(s => s.UserId);
 
                 entity.HasOne(s => s.OperationClaim)
                       .WithMany(s => s.UserOperationClaims)
-                      .HasForeignKey(s=>s.OperationClaimId);
+                      .HasForeignKey(s => s.OperationClaimId);
             });
 
-            modelBuilder.Entity<efVariantTotalsViewDal>(entity =>
+            modelBuilder.Entity<VariantTotalsView>(entity =>
             {
                 entity.HasNoKey();
 
@@ -3769,7 +3800,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.ActualStock).HasColumnType("numeric(38, 6)");
             });
 
-            modelBuilder.Entity<EfVariantTrackingTotalsViewDal>(entity =>
+            modelBuilder.Entity<VariantTrackingTotalsView>(entity =>
             {
                 entity.HasNoKey();
 
@@ -3780,7 +3811,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                 entity.Property(e => e.TrackingNumber).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<EfVehicleDal>(entity =>
+            modelBuilder.Entity<Vehicle>(entity =>
             {
                 entity.ToTable("Vehicle");
 
@@ -3838,7 +3869,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_Vehicle_WarehouseId");
             });
 
-            modelBuilder.Entity<EfWorkOrderDal>(entity =>
+            modelBuilder.Entity<WorkOrder>(entity =>
             {
                 entity.ToTable("WorkOrder");
 
@@ -4014,7 +4045,7 @@ namespace Wms.Integration.DataAccess.Concrete.Contexts
                     .HasConstraintName("fk_WorkOrder_WarehouseId");
             });
 
-            modelBuilder.Entity<EfWorkOrderLineDal>(entity =>
+            modelBuilder.Entity<WorkOrderLine>(entity =>
             {
                 entity.ToTable("WorkOrderLine");
 

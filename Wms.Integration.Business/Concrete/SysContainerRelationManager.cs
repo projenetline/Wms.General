@@ -2,35 +2,102 @@
 using Wms.Integration.Core.DataAccess.Utilities.Results;
 using Wms.Integration.DataAccess.Abstract;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class SysContainerRelationManager : ISysContainerRelationService
     {
         private readonly ISysContainerRelationDal sysContainerRelationDal;
-        public SysContainerRelationManager(ISysContainerRelationDal sysContainerRelationDal)
+        private readonly ILoggerDal loggerDal;
+        public SysContainerRelationManager(ISysContainerRelationDal sysContainerRelationDal, ILoggerDal loggerDal)
         {
             this.sysContainerRelationDal = sysContainerRelationDal;
+            this.loggerDal = loggerDal;
         }
 
-        public Task<IDataResult<SysContainerRelation>> CreateAsync(SysContainerRelation entity)
+        public async Task<IDataResult<SysContainerRelation>> CreateAsync(SysContainerRelation entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysContainerRelation>(await sysContainerRelationDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysContainerRelationManager.CreateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysContainerRelation>(null, CustomJObject.Instance.General.NotCreate);
+            }
         }
 
-        public Task<IDataResult<SysContainerRelation>> DeleteAsync(SysContainerRelation entity)
+        public async Task<IDataResult<SysContainerRelation>> DeleteAsync(SysContainerRelation entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysContainerRelation>(await sysContainerRelationDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysContainerRelationManager.DeleteAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysContainerRelation>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
 
-        public Task<IDataResult<SysContainerRelation>> GetAsync(int id)
+        public async Task<IDataResult<SysContainerRelation>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysContainerRelation>(await sysContainerRelationDal.GetAsync(s=>s.Id==id), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysContainerRelationManager.GetAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysContainerRelation>(null, CustomJObject.Instance.General.NotGet);
+            }
         }
 
-        public Task<IDataResult<SysContainerRelation>> UpdateAsync(SysContainerRelation entity)
+        public async Task<IDataResult<SysContainerRelation>> UpdateAsync(SysContainerRelation entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysContainerRelation>(await sysContainerRelationDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysContainerRelationManager.UpdateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysContainerRelation>(null, CustomJObject.Instance.General.NotUpdate);
+            }
         }
     }
 }

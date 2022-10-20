@@ -5,6 +5,7 @@ using Wms.Integration.Core.Entities.Abstract;
 using Wms.Integration.DataAccess.Abstract;
 using Wms.Integration.DataAccess.Concrete;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
@@ -21,7 +22,7 @@ namespace Wms.Integration.Business.Concrete
         {
             try
             {
-                return new SuccessDataResult<AddressItem>(await addressItemDal.CreateAsync(entity), MessagingHelper.WAICreate);
+                return new SuccessDataResult<AddressItem>(await addressItemDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
             }
             catch (Exception ex)
             {
@@ -34,7 +35,7 @@ namespace Wms.Integration.Business.Concrete
                     ProjectName = "Wms.Integration.Business",
                     Statu = "Error",
                 });
-                return new ErrorDataResult<AddressItem>(null, MessagingHelper.NWAICreate);
+                return new ErrorDataResult<AddressItem>(null, CustomJObject.Instance.General.NotCreate);
             }
         }
 
@@ -42,7 +43,7 @@ namespace Wms.Integration.Business.Concrete
         {
             try
             {
-                return new SuccessDataResult<AddressItem>(await addressItemDal.DeleteAsync(entity), MessagingHelper.WAIDelete);
+                return new SuccessDataResult<AddressItem>(await addressItemDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
             }
             catch (Exception ex)
             {
@@ -55,7 +56,7 @@ namespace Wms.Integration.Business.Concrete
                     ProjectName = "Wms.Integration.Business",
                     Statu = "Error",
                 });
-                return new ErrorDataResult<AddressItem>(null, MessagingHelper.NWAIDelete);
+                return new ErrorDataResult<AddressItem>(null, CustomJObject.Instance.General.NotDelete);
             }
         }
 
@@ -63,7 +64,7 @@ namespace Wms.Integration.Business.Concrete
         {
             try
             {
-                return new SuccessDataResult<AddressItem>(await addressItemDal.GetAsync(s=>s.Id==id), MessagingHelper.WAIGet);
+                return new SuccessDataResult<AddressItem>(await addressItemDal.GetAsync(s=>s.Id==id), CustomJObject.Instance.General.Get);
             }
             catch (Exception ex)
             {
@@ -76,14 +77,14 @@ namespace Wms.Integration.Business.Concrete
                     ProjectName = "Wms.Integration.Business",
                     Statu = "Error",
                 });
-                return new ErrorDataResult<AddressItem>(null, MessagingHelper.NWAIGet);
+                return new ErrorDataResult<AddressItem>(null, CustomJObject.Instance.General.NotGet);
             }
         }
         public async Task<IDataResult<AddressItem>> UpdateAsync(AddressItem entity)
         {
             try
             {
-                return new SuccessDataResult<AddressItem>(await addressItemDal.UpdateAsync(entity), MessagingHelper.WAIUpdate);
+                return new SuccessDataResult<AddressItem>(await addressItemDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
             }
             catch (Exception ex)
             {
@@ -96,7 +97,7 @@ namespace Wms.Integration.Business.Concrete
                     ProjectName = "Wms.Integration.Business",
                     Statu = "Error",
                 });
-                return new ErrorDataResult<AddressItem>(null, MessagingHelper.NWAIUpdate);
+                return new ErrorDataResult<AddressItem>(null, CustomJObject.Instance.General.NotUpdate);
             }
         }
     }

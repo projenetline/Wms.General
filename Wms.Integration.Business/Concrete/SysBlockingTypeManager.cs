@@ -1,36 +1,106 @@
 ﻿using Wms.Integration.Business.Abstract;
 using Wms.Integration.Core.Core.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
+using Wms.Integration.Core.Entities.Abstract;
+using Wms.Integration.DataAccess.Abstract;
+using Wms.Integration.DataAccess.Concrete;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class SysBlockingTypeManager : ISysBlockingTypeService
     {
-        private readonly ISysBlockingTypeService sysBlockingService;
-        public SysBlockingTypeManager(ISysBlockingTypeService sysBlockingService)
+        private readonly ISysBlockingTypeDal sysBlockingDal;
+        private readonly ILoggerDal loggerDal;
+        public SysBlockingTypeManager(ISysBlockingTypeDal sysBlockingDal, ILoggerDal loggerDal)
         {
-            this.sysBlockingService = sysBlockingService;
+            this.sysBlockingDal = sysBlockingDal;
+            this.loggerDal = loggerDal;
         }
 
-        public Task<IDataResult<SysBlockingType>> CreateAsync(SysBlockingType entity)
+        public async Task<IDataResult<SysBlockingType>> CreateAsync(SysBlockingType entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysBlockingType>(await sysBlockingDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysBlockingTypeManager.CreateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysBlockingType>(null, CustomJObject.Instance.General.NotCreate);
+            }
         }
 
-        public Task<IDataResult<SysBlockingType>> DeleteAsync(SysBlockingType entity)
+        public async Task<IDataResult<SysBlockingType>> DeleteAsync(SysBlockingType entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysBlockingType>(await sysBlockingDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysBlockingTypeManager.DeleteAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysBlockingType>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
 
-        public Task<IDataResult<SysBlockingType>> GetAsync(int id)
+        public async Task<IDataResult<SysBlockingType>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysBlockingType>(await sysBlockingDal.GetAsync(s => s.Id == id), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysBlockingTypeManager.GetAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysBlockingType>(null, CustomJObject.Instance.General.NotGet);
+            }
         }
 
-        public Task<IDataResult<SysBlockingType>> UpdateAsync(SysBlockingType entity)
+        public async Task<IDataResult<SysBlockingType>> UpdateAsync(SysBlockingType entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<SysBlockingType>(await sysBlockingDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysBlockingTypeManager.UpdateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysBlockingType>(null, CustomJObject.Instance.General.NotUpdate);
+            }
         }
     }
 }

@@ -1,36 +1,105 @@
 ﻿using Wms.Integration.Business.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
+using Wms.Integration.Core.Entities.Abstract;
 using Wms.Integration.DataAccess.Abstract;
+using Wms.Integration.DataAccess.Concrete;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class PlanningSlipLineManager : IPlanningSlipLineService
     {
         private readonly IPlanningSlipLineDal planningSlipLineDal;
-        public PlanningSlipLineManager(IPlanningSlipLineDal planningSlipLineDal)
+        private readonly ILoggerDal loggerDal;
+        public PlanningSlipLineManager(IPlanningSlipLineDal planningSlipLineDal, ILoggerDal loggerDal)
         {
             this.planningSlipLineDal = planningSlipLineDal;
+            this.loggerDal = loggerDal;
         }
 
-        public Task<IDataResult<PlanningSlipLine>> CreateAsync(PlanningSlipLine entity)
+        public async Task<IDataResult<PlanningSlipLine>> CreateAsync(PlanningSlipLine entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<PlanningSlipLine>(await planningSlipLineDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "PlanningSlipLineManager.CreateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<PlanningSlipLine>(null, CustomJObject.Instance.General.NotCreate);
+            }
         }
 
-        public Task<IDataResult<PlanningSlipLine>> DeleteAsync(PlanningSlipLine entity)
+        public async Task<IDataResult<PlanningSlipLine>> DeleteAsync(PlanningSlipLine entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<PlanningSlipLine>(await planningSlipLineDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "PlanningSlipLineManager.DeleteAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<PlanningSlipLine>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
 
-        public Task<IDataResult<PlanningSlipLine>> GetAsync(int id)
+        public async Task<IDataResult<PlanningSlipLine>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<PlanningSlipLine>(await planningSlipLineDal.GetAsync(s=>s.Id==id), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "PlanningSlipLineManager.GetAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<PlanningSlipLine>(null, CustomJObject.Instance.General.NotGet);
+            }
         }
 
-        public Task<IDataResult<PlanningSlipLine>> UpdateAsync(PlanningSlipLine entity)
+        public async Task<IDataResult<PlanningSlipLine>> UpdateAsync(PlanningSlipLine entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<PlanningSlipLine>(await planningSlipLineDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "PlanningSlipLineManager.UpdateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<PlanningSlipLine>(null, CustomJObject.Instance.General.NotUpdate);
+            }
         }
     }
 }

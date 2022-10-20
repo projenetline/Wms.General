@@ -12,8 +12,8 @@ namespace Wms.Integration.DataAccess.Concrete
         {
             using (WMSContext context = new WMSContext())
             {
-                 return await context.Users.FirstOrDefaultAsync(s => s.UserName == userName);
-                //return null;
+                // return await context.Users.FirstOrDefaultAsync(s => s.UserName == userName);
+                return null;
             }
         }
 
@@ -21,7 +21,8 @@ namespace Wms.Integration.DataAccess.Concrete
         {
             using (WMSContext context = new WMSContext())
             {
-                return await context.UserOperationClaims.Include(s => s.User).Include(z => z.OperationClaim).Where(z => z.UserId == user.Id).Select(s => s.OperationClaim).ToListAsync();
+                // return await context.UserOperationClaims.Include(s => s.User).Include(z => z.OperationClaim).Where(z => z.UserId == user.Id).Select(s => s.OperationClaim).ToListAsync();
+                return null;
             }
         }
     }

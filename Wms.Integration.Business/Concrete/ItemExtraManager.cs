@@ -1,39 +1,101 @@
 ﻿using Wms.Integration.Business.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
+using Wms.Integration.Core.Entities.Abstract;
 using Wms.Integration.DataAccess.Abstract;
 using Wms.Integration.Entities.Concrete;
+using Wms.Integration.Entities.JsonObjects;
 
 namespace Wms.Integration.Business.Concrete
 {
     public class ItemExtraManager : IItemExtraService
     {
         private readonly IItemExtraDal itemExtraDal;
-        public ItemExtraManager(IItemExtraDal itemExtraDal)
+        private readonly ILoggerDal loggerDal;  
+        public ItemExtraManager(IItemExtraDal itemExtraDal, ILoggerDal loggerDal)
         {
             this.itemExtraDal = itemExtraDal;
+            this.loggerDal = loggerDal;
         }
-        public Task<IDataResult<ItemExtra>> CreateAsync(ItemExtra entity)
+        public async Task<IDataResult<ItemExtra>> CreateAsync(ItemExtra entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<ItemExtra>(await itemExtraDal.CreateAsync(entity), CustomJObject.Instance.General.Create);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemExtraManager.CreateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<ItemExtra>(null, CustomJObject.Instance.General.NotCreate);
+            }
         }
-        public Task<IDataResult<ItemExtra>> DeleteAsync(ItemExtra entity)
+        public async Task<IDataResult<ItemExtra>> DeleteAsync(ItemExtra entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<ItemExtra>(await itemExtraDal.DeleteAsync(entity), CustomJObject.Instance.General.Delete);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemExtraManager.DeleteAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<ItemExtra>(null, CustomJObject.Instance.General.NotDelete);
+            }
         }
 
-        public Task<IDataResult<ItemExtra>> GetAsync(int id)
+        public async Task<IDataResult<ItemExtra>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<ItemExtra>(await itemExtraDal.GetAsync(s=>s.Id==id), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemExtraManager.GetAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<ItemExtra>(null, CustomJObject.Instance.General.NotGet);
+            }
         }
-
-        public Task<IDataResult<IList<ItemExtra>>> GetListAsync(ItemExtra entity)
+        public async Task<IDataResult<ItemExtra>> UpdateAsync(ItemExtra entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IDataResult<ItemExtra>> UpdateAsync(ItemExtra entity)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return new SuccessDataResult<ItemExtra>(await itemExtraDal.UpdateAsync(entity), CustomJObject.Instance.General.Update);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemExtraManager.UpdateAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<ItemExtra>(null, CustomJObject.Instance.General.NotUpdate);
+            }
         }
     }
 }
