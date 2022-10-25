@@ -75,6 +75,28 @@ namespace Wms.Integration.Business.Concrete
                 return new ErrorDataResult<Item>(null, CustomJObject.Instance.General.NotGet);
             }
         }
+
+        public async Task<IDataResult<Item>> GetCodeAsync(string code)
+        {
+            try
+            {
+                return new SuccessDataResult<Item>(await itemDal.GetAsync(s => s.Code == code), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "ItemManager.GetCodeAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<Item>(null, CustomJObject.Instance.General.NotGet);
+            }
+        }
+
         public async Task<IDataResult<Item>> UpdateAsync(Item entity)
         {
             try

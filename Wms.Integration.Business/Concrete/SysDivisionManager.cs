@@ -80,6 +80,27 @@ namespace Wms.Integration.Business.Concrete
             }
         }
 
+        public async Task<IDataResult<SysDivision>> GetCodeAsync(string Code)
+        {
+            try
+            {
+                return new SuccessDataResult<SysDivision>(await sysDivisionDal.GetAsync(s => s.Code == Code), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysDivisionManager.GetCodeAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysDivision>(null, CustomJObject.Instance.General.NotGet);
+            }
+        }
+
         public async Task<IDataResult<SysDivision>> UpdateAsync(SysDivision entity)
         {
             try

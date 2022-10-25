@@ -75,6 +75,28 @@ namespace Wms.Integration.Business.Concrete
                 return new ErrorDataResult<SysDepartment>(null, CustomJObject.Instance.General.NotGet);
             }
         }
+
+        public async Task<IDataResult<SysDepartment>> GetCodeAsync(string Code)
+        {
+            try
+            {
+                return new SuccessDataResult<SysDepartment>(await sysDepartmentDal.GetAsync(s => s.Code == Code), CustomJObject.Instance.General.Get);
+            }
+            catch (Exception ex)
+            {
+                await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysDepartmentManager.GetCodeAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysDepartment>(null, CustomJObject.Instance.General.NotGet);
+            }
+        }
+
         public async Task<IDataResult<SysDepartment>> UpdateAsync(SysDepartment entity)
         {
             try
