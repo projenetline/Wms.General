@@ -4,6 +4,7 @@ using Wms.Integration.Entities.Dtos.DecompositionLines;
 using Wms.Integration.Entities.Dtos.Decompositions;
 using Wms.Integration.Entities.Dtos.DecompositionShelfs;
 using Wms.Integration.Entities.Dtos.DecompositionShelves;
+using Wms.Integration.Entities.Dtos.PurchaseOrders;
 
 namespace Wms.Integration.Business.DependecyResolvers
 {
@@ -11,6 +12,11 @@ namespace Wms.Integration.Business.DependecyResolvers
     {
         public AutoMapProfile()
         {
+            CreateMap<OrderSlip, CreatePurchaseOrdersDto>();
+            CreateMap<OrderSlipLine, CreatePurchaseOrdersLineDto>();
+            CreateMap<CreatePurchaseOrdersDto,OrderSlip>();
+            CreateMap<CreatePurchaseOrdersLineDto,OrderSlipLine>();
+
             CreateMap<Decomposition, SelectDecompositionDto>();
             CreateMap<Decomposition, ListDecompositionDto>();
             CreateMap<CreateDecompositionDto, Decomposition>();

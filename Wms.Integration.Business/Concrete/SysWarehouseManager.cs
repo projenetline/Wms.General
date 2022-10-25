@@ -1,8 +1,6 @@
 ﻿using Wms.Integration.Business.Abstract;
 using Wms.Integration.Core.DataAccess.Utilities.Results;
-using Wms.Integration.Core.Entities.Abstract;
 using Wms.Integration.DataAccess.Abstract;
-using Wms.Integration.DataAccess.Concrete;
 using Wms.Integration.Entities.Concrete;
 using Wms.Integration.Entities.JsonObjects;
 
@@ -75,6 +73,26 @@ namespace Wms.Integration.Business.Concrete
                     Statu = "Error",
                 });
                 return new ErrorDataResult<SysWarehouse>(null, CustomJObject.Instance.General.NotGet);
+            }
+        }
+        public async Task<IDataResult<SysWarehouse>> GetCodeAsync(string code)
+        {
+            try
+            {
+                return new SuccessDataResult<SysWarehouse>(await sysWarehouseDal.GetAsync(s => s.Code == code), CustomJObject.Instance.WareHouse.Get);
+            }
+            catch (Exception ex)
+            {
+                Logger logger=await loggerDal.CreateAsync(new Logger
+                {
+                    CreatedDate = DateTime.Now,
+                    Message1 = ex.Message,
+                    Message2 = ex.InnerException == null ? "" : ex.InnerException.Message,
+                    MethodName = "SysWarehouseManager.GetCodeAsync",
+                    ProjectName = "Wms.Integration.Business",
+                    Statu = "Error",
+                });
+                return new ErrorDataResult<SysWarehouse>(null, CustomJObject.Instance.WareHouse.NotGet +$"\n Error Id : {logger.Id}");
             }
         }
         public async Task<IDataResult<SysWarehouse>> UpdateAsync(SysWarehouse entity)

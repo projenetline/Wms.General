@@ -5,6 +5,7 @@ namespace Wms.Integration.Entities.Concrete
     public class HttpLogger:IBaseEntity
     {
         public Guid Id { get; set; }    
+        public DateTime CreatedDate { get; set; }
         public string FullUrl { get; set; }
         public string Body { get; set; }
         public string LocalIp { get; set; }

@@ -33,6 +33,15 @@ namespace Wms.Integration.Entities.JsonObjects
         private JMessage general;
         private JMessage addressItem;
         private JMessage arp;
+        private JMessage warehouse;
+        public JMessage WareHouse
+        {
+            get => warehouse ?? (warehouse = new JMessage
+            {
+                Get="Depo başarı ile getirildi...",
+                NotGet = "Deponuz bulunamadı!",
+            });
+        }
         public JMessage General
         {
             get => general ?? (general = new JMessage
